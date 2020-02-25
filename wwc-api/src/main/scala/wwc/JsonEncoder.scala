@@ -1,8 +1,12 @@
 package wwc
 
+import java.time.format.DateTimeFormatter
+
 import play.api.libs.json.{JsObject, Json}
 
 object JsonEncoder {
+  private val dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
   def encode(commits: Commits): JsObject = {
     val data = commits.breachEncapsulationOfValues.map { commit =>
       Json.obj(
@@ -11,7 +15,7 @@ object JsonEncoder {
           "email" -> commit.committer.email
         ),
         "message"    -> commit.message.value,
-        "date"       -> commit.date.value,
+        "date"       -> commit.date.value.format(dateTimeFormatter),
         "files"      -> commit.changes.breachEncapsulationOfValues.map(_.name),
         "file_types" -> commit.fileTypes.map(fileTypeToString)
       )

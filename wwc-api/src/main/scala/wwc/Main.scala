@@ -1,6 +1,7 @@
 package wwc
 
 import java.io.File
+import java.time.{ZoneId, ZonedDateTime}
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.filter.RevFilter
@@ -28,8 +29,8 @@ object Main extends App {
         email = commit.getAuthorIdent.getEmailAddress
       )
 
-      val commitDate = CommitDate(commit.getAuthorIdent.getWhen)
-
+      val commitDate =
+        CommitDate(ZonedDateTime.ofInstant(commit.getAuthorIdent.getWhen.toInstant, ZoneId.of("Asia/Tokyo")))
       val commitMessage = CommitMessage(commit.getFullMessage)
 
       val tree     = commit.getTree

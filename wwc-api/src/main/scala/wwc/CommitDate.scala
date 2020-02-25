@@ -1,5 +1,5 @@
 package wwc
 
-import java.util.Date
+import java.time.ZonedDateTime
 
-final case class CommitDate(value: Date)
+final case class CommitDate(value: ZonedDateTime)
