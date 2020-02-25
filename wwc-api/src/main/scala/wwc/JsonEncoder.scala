@@ -14,10 +14,11 @@ object JsonEncoder {
           "name"  -> commit.committer.name,
           "email" -> commit.committer.email
         ),
-        "message"    -> commit.message.value,
-        "date"       -> commit.date.value.format(dateTimeFormatter),
-        "files"      -> commit.changes.breachEncapsulationOfValues.map(_.name),
-        "file_types" -> commit.fileTypes.map(fileTypeToString)
+        "message"        -> commit.message.value,
+        "date"           -> commit.date.value.format(dateTimeFormatter),
+        "files"          -> commit.changes.breachEncapsulationOfValues.map(_.name),
+        "file_types"     -> commit.fileTypes.map(fileTypeToString),
+        "related_ticket" -> commit.relatedTicket.map(_.value)
       )
     }
     Json.obj(
